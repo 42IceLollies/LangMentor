@@ -1,0 +1,18 @@
+Production Dependencies:
+
+pg - For PostgreSQL database management
+cors - For handling Cross Origin Resource Sharing (cors)
+jsonwebtoken - For authentication with JWTs
+dotenv - For creating secure environment variables
+
+
+Development Dependencies:
+
+nodemon - For automatically restarting the server on changes
+
+
+Dependencies Install Command:
+
+npm install pg cors jsonwebtoken dotenv --save
+npm install nodemon --save-dev
+

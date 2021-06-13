@@ -1,0 +1,34 @@
+{
+  "name": "langmentor",
+  "version": "1.0.0",
+  "description": "Learn to be fluent in another language with LangMentor",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoftwareFuze/LangMentor.git"
+  },
+  "keywords": [
+    "Language_Learning",
+    "LangMentor",
+    "Languages",
+    "Learning_Platform"
+  ],
+  "author": "Atticus C <atticus@softwarefuze.com> (https://softwarefuze.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SoftwareFuze/LangMentor/issues"
+  },
+  "homepage": "https://github.com/SoftwareFuze/LangMentor#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
