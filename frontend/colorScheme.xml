@@ -1,0 +1,10 @@
+<site-colors>
+	<colors-primary>
+		<color hex="#3c8dad" name="light-blue" />
+		<color hex="#f5a962" name="light-tan" />
+	</colors-primary>
+	<colors-secondary>
+		<color hex="#125d98" name="dark-blue" />
+		<color hex="#dddddd" name="dimmed-white" />
+	</colors-secondary>
+</site-colors>	
