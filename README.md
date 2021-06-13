@@ -11,11 +11,13 @@
 
 ## Contributors
 ***Cordelia T ([@42IceLollies](https://github.com/42icelollies))***
+
 Twitter: [@42IceLollies](https://twitter.com/42icelollies)
 
 Reddit: [u/Applecor42](https://www.reddit.com/user/Applecor42)
 
 ***Atticus C ([@SoftwareFuze](https://github.com/SoftwareFuze))***
+
 Email: [atticus@softwarefuze.com](mailto:atticus@softwarefuze.com)
 
 Codepen: [@teake_smal](https://codepen.io/teake_smal)
