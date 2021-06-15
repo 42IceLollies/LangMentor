@@ -10,6 +10,9 @@ const app = express();
 app.use(cors());
 app.use(express.static('public'));
 
+// ReST API
+app.use('/auth', require("./routes/auth.route.js"));
+
 // main API
 app.get('/', (req, res) => {
 	res.json({ status: 200, message: "Welcome to the LangMentor ReST API" });

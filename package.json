@@ -4,7 +4,9 @@
   "description": "Learn to be fluent in another language with LangMentor",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"development-start": "nodemon main.js",
+	"production-start": "node main.js"
   },
   "repository": {
     "type": "git",
