@@ -1,5 +1,6 @@
 const pg = require("pg");
 const Pool = pg.Pool;
+require('dotenv').config();
 
 const { POSTGRES_USER, POSTGRES_PASS, DATABASE } = process.env;
 

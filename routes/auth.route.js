@@ -22,7 +22,7 @@ authRouter.post('/register', async (req, res) => {
 			try {
 				const hashed = await bcrypt.hash(password, 10);
 				await pool.query("INSERT INTO unverified_users (user_name, user_email, user_pass) VALUES ($1, $2, $3)",  [ username, email, hashed ]);
-				const accessToken = jwt.sign({ username, email, pass: hashed }, process.env.ACCESS_TOKEN_SECRET);
+				const accessToken = jwt.sign({ username, email, pass: hashed }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 60 });
 				const refreshToken = jwt.sign({ username, email }, process.env.REFRESH_TOKEN_SECRET);
 
 				sendVerificationEmail(email, username, hashed, (response) => {
@@ -46,7 +46,7 @@ authRouter.post('/login', async (req, res) => {
 			try {
 				const validPass = await bcrypt.compare(password, userExists.user_pass);
 				if (validPass) {
-					const accessToken = jwt.sign({ username, email, pass: userExists.user_pass }, process.env.ACCESS_TOKEN_SECRET);
+					const accessToken = jwt.sign({ username, email, pass: userExists.user_pass }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 60 });
 					const refreshToken = jwt.sign({ username, email }, process.env.REFRESH_TOKEN_SECRET);
 
 					res.json({ status: 200, accessToken, refreshToken });
@@ -64,7 +64,6 @@ authRouter.get('/verify/:_name/:_email/:_pass', async (req, res) => {
     const [ username, email, password ] = encodeUtils.decodeStrings([ _name, _email, _pass ]);
     
     const userExists = await utils.unverifiedAndExists(pool, username, email);
-	console.log(userExists);
     if (userExists) {
         if (password === userExists.user_pass) {
             try {
@@ -79,6 +78,5 @@ authRouter.get('/verify/:_name/:_email/:_pass', async (req, res) => {
         } else res.json({ status: 403, message: "Invalid password in verification link" });
     } else res.json({ status: 400, message: "Invalid verification link" });
 });
-
 
 module.exports = authRouter;

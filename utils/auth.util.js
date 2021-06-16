@@ -45,6 +45,12 @@ const userAndExists = async (pool, username, email) => {
 	return userExists.rows.length !== 0 ? userExists.rows[0] : false;
 }
 
+const refreshTokenValid = async (pool, rt) => {
+	const rtExists = await pool.query("SELECT _rt FROM banished_rts WHERE _rt = $1", [ rt ]);
+	
+	return !(rtExists.rows.length !== 0);
+}	
+
 module.exports = {
 	validateFields,
 	emailValid,
@@ -52,5 +58,6 @@ module.exports = {
 	userExists,
 	userAndExists,
 	unverifiedExists,
-	unverifiedAndExists
+	unverifiedAndExists,
+	refreshTokenValid
 };

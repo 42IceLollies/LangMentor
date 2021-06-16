@@ -18,6 +18,11 @@ CREATE TABLE unverified_users (
 	user_pass VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE banished_rts (
+	rt_id SERIAL PRIMARY KEY,
+	_rt VARCHAR(255) NOT NULL
+);
+
 -- Get all users based on user_id
 SELECT * FROM users ORDER BY user_id;
 
