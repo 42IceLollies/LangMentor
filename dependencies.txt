@@ -5,6 +5,8 @@ cors - For handling Cross Origin Resource Sharing (cors)
 jsonwebtoken - For authentication with JWTs
 dotenv - For creating secure environment variables
 express - For creating a server for the backend
+bcryptjs - For hashing passwords for the database
+nodemailer - For sending verification emails
 
 
 Development Dependencies:
@@ -14,6 +16,6 @@ nodemon - For automatically restarting the server on changes
 
 Dependencies Install Command:
 
-npm install pg cors jsonwebtoken dotenv express --save
+npm install pg cors jsonwebtoken dotenv express bcryptjs nodemailer --save
 npm install nodemon --save-dev
 
