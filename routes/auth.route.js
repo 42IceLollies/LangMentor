@@ -1,6 +1,7 @@
 const express = require("express");
 const authRouter = express.Router();
 const utils = require("../utils/auth.util.js");
+const encodeUtils = require("../utils/encoding.util.js");
 const pool = require("../databaseSetup.js");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -24,7 +25,7 @@ authRouter.post('/register', async (req, res) => {
 				const accessToken = jwt.sign({ username, email, pass: hashed }, process.env.ACCESS_TOKEN_SECRET);
 				const refreshToken = jwt.sign({ username, email }, process.env.REFRESH_TOKEN_SECRET);
 
-				sendVerificationEmail(email, username, (response) => {
+				sendVerificationEmail(email, username, hashed, (response) => {
 					if (response) res.json({ status: 200, accessToken, refreshToken });
 					else res.json({ status: 500, message: "Sorry, something went wrong sending the verificaiton email..." });
 				});
@@ -57,5 +58,27 @@ authRouter.post('/login', async (req, res) => {
 		} else res.json({ status: 400, message: "Invalid username, email, or password" });
 	} else res.json({ status: 400, message: "Please enter a valid username, email, and password" });
 });
+
+authRouter.get('/verify/:_name/:_email/:_pass', async (req, res) => {
+    const { _name, _email, _pass } = req.params;
+    const [ username, email, password ] = encodeUtils.decodeStrings([ _name, _email, _pass ]);
+    
+    const userExists = await utils.unverifiedAndExists(pool, username, email);
+	console.log(userExists);
+    if (userExists) {
+        if (password === userExists.user_pass) {
+            try {
+                const { user_name, user_email, user_pass } = userExists;
+                await pool.query("INSERT INTO users (user_name, user_email, user_pass) VALUES ($1, $2, $3)", [ user_name, user_email, user_pass ]);
+                await pool.query("DELETE FROM unverified_users WHERE user_name = $1 AND user_email = $2 AND user_pass = $3", [ user_name, user_email, user_pass ]);
+                res.json({ status: 200 });
+            } catch (err) {
+                console.log(err);
+                res.json({ status: 500, message: "Sorry... Something went wrong" });
+            }
+        } else res.json({ status: 403, message: "Invalid password in verification link" });
+    } else res.json({ status: 400, message: "Invalid verification link" });
+});
+
 
 module.exports = authRouter;

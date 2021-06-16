@@ -19,10 +19,24 @@ const userExistsBoth = async (pool, username, email) => {
 	return (userExists.rows.length !== 0 || unverifiedExists.rows.length !== 0);
 }
 
+const unverifiedExists = async (pool, username, email) => {
+	const userExists = await pool.query("SELECT user_id FROM unverified_users WHERE user_name = $1 AND user_email = $2", [ username, email ]);
+
+	return (userExists.rows.length !== 0);
+}
+
 const userExists = async (pool, username, email) => {
 	const userExists = await pool.query("SELECT user_id FROM users WHERE user_name = $1 AND user_email = $2", [ username, email ]);
 
 	return (userExists.rows.length !== 0);
+}
+
+const unverifiedAndExists = async (pool, username, email) => {
+	const userExists = await pool.query("SELECT * FROM unverified_users WHERE user_name = $1 AND user_email = $2", [ username, email ]);
+
+	console.log(username, email);
+
+	return userExists.rows.length !== 0 ? userExists.rows[0] : false;
 }
 
 const userAndExists = async (pool, username, email) => {
@@ -36,5 +50,7 @@ module.exports = {
 	emailValid,
 	userExistsBoth,
 	userExists,
-	userAndExists
+	userAndExists,
+	unverifiedExists,
+	unverifiedAndExists
 };
