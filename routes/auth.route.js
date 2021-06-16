@@ -4,6 +4,7 @@ const utils = require("../utils/auth.util.js");
 const pool = require("../databaseSetup.js");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const { sendVerificationEmail } = require("../emailSetup.js");
 
 authRouter.get('/', (req, res) => {
 	res.json({ status: 200, message: "Welcome to the auth ReST API for LangMentor" });
@@ -23,7 +24,10 @@ authRouter.post('/register', async (req, res) => {
 				const accessToken = jwt.sign({ username, email, pass: hashed }, process.env.ACCESS_TOKEN_SECRET);
 				const refreshToken = jwt.sign({ username, email }, process.env.REFRESH_TOKEN_SECRET);
 
-				res.json({ status: 200, accessToken, refreshToken });
+				sendVerificationEmail(email, username, (response) => {
+					if (response) res.json({ status: 200, accessToken, refreshToken });
+					else res.json({ status: 500, message: "Sorry, something went wrong sending the verificaiton email..." });
+				});
 			} catch (err) {
 				console.log(err);
 				res.json({ status: 500, message: "Sorry, something went wrong... Please try again" });
