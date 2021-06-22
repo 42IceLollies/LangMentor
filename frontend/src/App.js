@@ -9,7 +9,7 @@ function App() {
 		<React.Fragment>
 			<Router>
 				<Switch>
-					<Route exact path="/HomePage" component={HomePage} />
+					<Route exact path="/" component={HomePage} />
 					<Route exact path="/UserAuthentication" component={UserAuthentication} />
 				</Switch>
 			</Router>

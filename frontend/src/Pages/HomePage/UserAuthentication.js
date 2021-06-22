@@ -6,7 +6,7 @@ export default function UserAuthentication(props) {
 	return (
 		<React.Fragment>
 			<h1>Create an Account!</h1>
-			<Link to={"/HomePage"}>
+			<Link to={"/"}>
 				Home
 			</Link>
 		</React.Fragment>
