@@ -4,7 +4,7 @@ const validateFields = ([ ...fields ]) => {
 	let steps = [false, false];
 	steps[0] = !fields.map(field => (field && field !== "") ? true : false)
 		.includes(false);
-	steps[1] = !fields.map(field => field.search(/(SELECT( ?\* ?| (.)* )FROM (.)*((( )+)?;|(GROUP BY|WHERE|ORDER BY) (.)*))|(DROP (TABLE|DATABASE) (.)*((( )+)?\;?|WHERE (.)*))/ig) === 0 ? true : false)
+	steps[1] = !fields.map(field => field.search(/(SELECT( ?\* ?| (.)* )FROM (.)*((( )+)?;|(GROUP BY|WHERE|ORDER BY) (.)*))|(DROP (TABLE|DATABASE) (.)*((( )+)?\;?|WHERE (.)*))|(--(.)*)/ig) === 0 ? true : false)
 		.includes(true);
 	return !steps.includes(false);
 }
